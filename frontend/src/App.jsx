@@ -1,9 +1,12 @@
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, NavLink } from 'react-router-dom'
 
 function App() {
   return (
     <BrowserRouter>
-      <div />
+      <nav>
+        <NavLink to="/">Task List</NavLink>
+        <NavLink to="/add-task">Add Task</NavLink>
+      </nav>
     </BrowserRouter>
   )
 }
