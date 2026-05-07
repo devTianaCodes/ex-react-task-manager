@@ -1,11 +1,12 @@
 import { useContext } from 'react'
+import TaskRow from '../components/TaskRow'
 import { GlobalContext } from '../context/GlobalContext'
 
 function TaskList() {
   const { tasks } = useContext(GlobalContext)
 
   return (
-    <div>
+    <div className="task-list-container">
       <h1>Task List</h1>
       <table>
         <thead>
@@ -17,11 +18,7 @@ function TaskList() {
         </thead>
         <tbody>
           {tasks.map((task) => (
-            <tr key={task.id}>
-              <td>{task.title}</td>
-              <td>{task.status}</td>
-              <td>{task.createdAt}</td>
-            </tr>
+            <TaskRow key={task.id} task={task} />
           ))}
         </tbody>
       </table>
