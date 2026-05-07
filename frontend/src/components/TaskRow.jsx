@@ -1,12 +1,14 @@
+import { memo } from 'react'
+
 function TaskRow({ task }) {
   let statusColor = ''
 
   if (task.status === 'To do') {
-    statusColor = 'red'
+    statusColor = '#f7c8c8'
   } else if (task.status === 'Doing') {
-    statusColor = 'yellow'
+    statusColor = '#f8edb8'
   } else if (task.status === 'Done') {
-    statusColor = 'green'
+    statusColor = '#cfeccf'
   }
 
   return (
@@ -18,4 +20,4 @@ function TaskRow({ task }) {
   )
 }
 
-export default TaskRow
+export default memo(TaskRow)
