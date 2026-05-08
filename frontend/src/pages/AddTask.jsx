@@ -1,9 +1,28 @@
 import { useRef, useState } from 'react'
 
+const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~"
+
 function AddTask() {
   const [title, setTitle] = useState('')
+  const [titleError, setTitleError] = useState('')
   const descriptionRef = useRef(null)
   const statusRef = useRef(null)
+
+  function validateTitle(value) {
+    if (value.trim() === '') {
+      setTitleError('Task name is required.')
+      return
+    }
+
+    for (let i = 0; i < value.length; i += 1) {
+      if (symbols.includes(value[i])) {
+        setTitleError('Task name cannot contain special symbols.')
+        return
+      }
+    }
+
+    setTitleError('')
+  }
 
   return (
     <div>
@@ -16,9 +35,14 @@ function AddTask() {
             id="title"
             type="text"
             value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => {
+              const newTitle = event.target.value
+              setTitle(newTitle)
+              validateTitle(newTitle)
+            }}
           />
         </div>
+        {titleError && <p>{titleError}</p>}
 
         <div>
           <label htmlFor="description">Description</label>
