@@ -11,24 +11,43 @@ function AddTask() {
   function validateTitle(value) {
     if (value.trim() === '') {
       setTitleError('Task name is required.')
-      return
+      return false
     }
 
     for (let i = 0; i < value.length; i += 1) {
       if (symbols.includes(value[i])) {
         setTitleError('Task name cannot contain special symbols.')
-        return
+        return false
       }
     }
 
     setTitleError('')
+    return true
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    const isTitleValid = validateTitle(title)
+
+    if (!isTitleValid) {
+      return
+    }
+
+    const newTask = {
+      title,
+      description: descriptionRef.current.value,
+      status: statusRef.current.value,
+    }
+
+    console.log(newTask)
   }
 
   return (
     <div>
       <h1>Add Task</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Task Name</label>
           <input
