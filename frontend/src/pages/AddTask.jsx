@@ -44,11 +44,11 @@ function AddTask() {
   }
 
   return (
-    <div>
+    <div className="add-task-container">
       <h1>Add Task</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="add-task-form" onSubmit={handleSubmit}>
+        <div className="form-group">
           <label htmlFor="title">Task Name</label>
           <input
             id="title"
@@ -61,14 +61,14 @@ function AddTask() {
             }}
           />
         </div>
-        {titleError && <p>{titleError}</p>}
+        {titleError && <p className="form-error">{titleError}</p>}
 
-        <div>
+        <div className="form-group">
           <label htmlFor="description">Description</label>
           <textarea id="description" ref={descriptionRef}></textarea>
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="status">Status</label>
           <select id="status" ref={statusRef} defaultValue="To do">
             <option value="To do">To do</option>
@@ -77,7 +77,9 @@ function AddTask() {
           </select>
         </div>
 
-        <button type="submit">Add Task</button>
+        <div className="submit-container">
+          <button type="submit">Add Task</button>
+        </div>
       </form>
     </div>
   )
