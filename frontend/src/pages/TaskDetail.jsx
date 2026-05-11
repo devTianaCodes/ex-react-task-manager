@@ -1,12 +1,18 @@
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 
 function TaskDetail() {
+
   // Milestone 7: pagina dettaglio legge l'id dai parametri della rotta.
   const { id } = useParams();
-  const { tasks } = useContext(GlobalContext);
+
+  // Milestone 8: navigate reindirizza alla lista dopo l'eliminazione.
+  const navigate = useNavigate();
+
+  // Milestone 8: contesto espone task e funzione removeTask.
+  const { tasks, removeTask } = useContext(GlobalContext);
 
   const task = tasks.find((currentTask) => currentTask.id === Number(id));
 
@@ -14,8 +20,16 @@ function TaskDetail() {
     return <h1>Task not found</h1>;
   }
 
-  const handleDelete = () => {
-    console.log("Elimino task: ", task.id);
+  // Milestone 8: handleDelete elimina la task, mostra un alert e torna alla lista.
+  const handleDelete = async () => {
+    try {
+      await removeTask(task.id);
+      alert("Task deleted successfully.");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
   };
 
   return (
