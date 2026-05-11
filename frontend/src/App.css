@@ -7,6 +7,28 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+.nav-button {
+  min-width: 160px;
+  padding: 12px 24px;
+  border: 1px solid #9ccbc4;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #000000;
+  text-align: center;
+  text-decoration: none;
+}
+
+.nav-button-active {
+  background-color: #cdebe6;
+}
+
 .task-list-container {
   padding: 20px;
   border-radius: 12px;

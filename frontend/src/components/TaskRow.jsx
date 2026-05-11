@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-function TaskRow({ task }) {
+const TaskRow = memo(({ task }) => {
   let statusColor = ''
 
   if (task.status === 'To do') {
@@ -15,9 +15,9 @@ function TaskRow({ task }) {
     <tr>
       <td>{task.title}</td>
       <td style={{ backgroundColor: statusColor }}>{task.status}</td>
-      <td>{task.createdAt}</td>
+      <td>{new Date(task.createdAt).toLocaleDateString()}</td>
     </tr>
   )
-}
+})
 
-export default memo(TaskRow)
+export default TaskRow;

@@ -9,9 +9,23 @@ function App() {
     <GlobalProvider>
       <BrowserRouter>
         <div className="app-container">
-          <nav>
-            <NavLink to="/">Task List</NavLink>
-            <NavLink to="/add-task">Add Task</NavLink>
+          <nav className="main-nav">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? 'nav-button nav-button-active' : 'nav-button'
+              }
+            >
+              Task List
+            </NavLink>
+            <NavLink
+              to="/add-task"
+              className={({ isActive }) =>
+                isActive ? 'nav-button nav-button-active' : 'nav-button'
+              }
+            >
+              Add Task
+            </NavLink>
           </nav>
           <Routes>
             <Route path="/" element={<TaskList />} />
