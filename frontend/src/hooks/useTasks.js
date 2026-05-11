@@ -59,7 +59,31 @@ function useTasks() {
     );
   };
 
-  const updateTask = () => {};
+
+
+  // Milestone 10: updateTask invia una PUT e aggiorna lo stato se la modifica riesce.
+  const updateTask = async (updatedTask) => {
+    const response = await fetch(`${VITE_API_URL}/tasks/${updatedTask.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTask),
+    });
+
+    const { success, message, task } = await response.json();
+
+    if (!success) {
+      throw new Error(message);
+    }
+
+    setTasks((previousTasks) =>
+      previousTasks.map((currentTask) =>
+        currentTask.id === task.id ? task : currentTask 
+    // Aggiorna il task modificato nello stato locale
+      )
+    );
+  };
 
   return { tasks, addTask, removeTask, updateTask };
 }
