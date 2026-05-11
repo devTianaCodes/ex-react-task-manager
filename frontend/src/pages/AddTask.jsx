@@ -1,11 +1,23 @@
-import { useMemo, useRef, useState } from "react"
+import { useContext, useMemo, useRef, useState } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 
-const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~"
+
+
+// Milestone 5: costante contiene i simboli non permessi nel titolo.
+const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
+
+
 
 function AddTask() {
-  const [title, setTitle] = useState("")
-  const descriptionRef = useRef(null)
-  const statusRef = useRef(null)
+  // Milestone 6: pagina addTask usa il contesto per creare una nuova task.
+  const { addTask } = useContext(GlobalContext);
+
+  // Milestone 5: il titolo è un campo controllato gestito con useState.
+  const [title, setTitle] = useState("");
+
+  // Milestone 5: descrizione e stato sono campi non controllati gestiti con useRef.
+  const descriptionRef = useRef(null);
+  const statusRef = useRef(null);
 
   // function validateTitle(value) {
   //   if (value.trim() === "") {
@@ -24,24 +36,28 @@ function AddTask() {
   //   return true
   // }
 
+
+  // Milestone 5: controllo calcola l'errore del titolo senza salvare stato extra.
   const titleError = useMemo(() => {
     if (!title.trim()) {
-      return "Task name is required."
+      return "Task name is required.";
     }
 
     if ([...title].some((char) => symbols.includes(char))) {
-      return "Task name cannot contain special symbols."
+      return "Task name cannot contain special symbols.";
     }
 
-    return ""
-  }, [title])
+    return "";
+  }, [title]);
+  
 
-  function handleSubmit(event) {
-    event.preventDefault()
+  // Milestone 6:  submit valida, invia la task e resetta il form se va tutto bene.
+  async function handleSubmit(event) {
+    event.preventDefault();
 
     if (titleError) {
       return;
-    }
+    };
 
     const newTask = {
       title: title.trim(),
@@ -49,8 +65,20 @@ function AddTask() {
       status: statusRef.current.value,
     }
 
-    console.log(newTask)
+    try {
+      await addTask(newTask);// se addTask lancia un errore, il codice si ferma qui e passa al catch
+      alert("Task created successfully.");
+      setTitle("");// reset titolo controllato
+      descriptionRef.current.value = "";// reset descrizione non controllata
+      statusRef.current.value = "To do";//reset stato non controllato
+    } catch (error) {
+      alert(error.message);
+    }
   }
+
+
+
+
 
   return (
     <div className="add-task-container">
@@ -76,6 +104,7 @@ function AddTask() {
         <div className="form-group">
           <label htmlFor="status">Status</label>
           <select id="status" ref={statusRef} defaultValue="To do">
+            
             {["To do", "Doing", "Done"].map((value, index) => (
               <option key={index} value={value}>
                 {value}
@@ -89,13 +118,13 @@ function AddTask() {
         </div>
 
         <div className="submit-container">
-          <button type="submit" disabled={!titleError}>
+          <button type="submit" disabled={Boolean(titleError)}>
             Add Task
           </button>
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default AddTask
+export default AddTask;
