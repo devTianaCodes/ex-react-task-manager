@@ -7,6 +7,23 @@ function AddTask() {
   const descriptionRef = useRef(null)
   const statusRef = useRef(null)
 
+  // function validateTitle(value) {
+  //   if (value.trim() === "") {
+  //     setTitleError("Task name is required.")
+  //     return false
+  //   }
+  //
+  //   for (let i = 0; i < value.length; i += 1) {
+  //     if (symbols.includes(value[i])) {
+  //       setTitleError("Task name cannot contain special symbols.")
+  //       return false
+  //     }
+  //   }
+  //
+  //   setTitleError("")
+  //   return true
+  // }
+
   const titleError = useMemo(() => {
     if (!title.trim()) {
       return "Task name is required."
@@ -23,11 +40,11 @@ function AddTask() {
     event.preventDefault()
 
     if (titleError) {
-      return
+      return;
     }
 
     const newTask = {
-      title,
+      title: title.trim(),
       description: descriptionRef.current.value,
       status: statusRef.current.value,
     }
@@ -64,11 +81,17 @@ function AddTask() {
                 {value}
               </option>
             ))}
+
+            {/* <option value="To do">To do</option>
+            <option value="Doing">Doing</option>
+            <option value="Done">Done</option> */}
           </select>
         </div>
 
         <div className="submit-container">
-          <button type="submit">Add Task</button>
+          <button type="submit" disabled={!titleError}>
+            Add Task
+          </button>
         </div>
       </form>
     </div>
