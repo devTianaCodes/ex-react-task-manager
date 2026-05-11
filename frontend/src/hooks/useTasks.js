@@ -41,8 +41,23 @@ function useTasks() {
   };
 
 
-  // Milestone 4: funzioni placeholder per le prossime operazioni sui task.
-  const removeTask = () => {};
+  // Milestone 8: removeTask invia una DELETE e aggiorna lo stato se l'eliminazione riesce.
+  const removeTask = async (taskId) => {
+    const response = await fetch(`${VITE_API_URL}/tasks/${taskId}`, {
+      method: "DELETE",
+    }); // Invia una richiesta DELETE all'API per eliminare il task con l'id specificato
+
+    const { success, message } = await response.json();
+    // Attende la risposta e la converte in formato JSON
+
+    if (!success) {
+      throw new Error(message);
+    }
+
+    setTasks((previousTasks) =>
+      previousTasks.filter((task) => task.id !== taskId)// Rimuove il task eliminato dallo stato locale dall array
+    );
+  };
 
   const updateTask = () => {};
 

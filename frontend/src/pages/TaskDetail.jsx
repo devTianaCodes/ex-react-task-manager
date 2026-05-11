@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 
-// TaskDetail component to display details of a specific task
 function TaskDetail() {
-  const { id } = useParams();// Get the task ID from the URL parameters
-  const { tasks } = useContext(GlobalContext);// Access the tasks from the global context 
+  // Milestone 7: pagina dettaglio legge l'id dai parametri della rotta.
+  const { id } = useParams();
+  const { tasks } = useContext(GlobalContext);
 
   const task = tasks.find((currentTask) => currentTask.id === Number(id));
 
