@@ -1,6 +1,6 @@
-import { useContext } from 'react'
-import TaskRow from '../components/TaskRow'
-import { GlobalContext } from '../context/GlobalContext'
+import { useContext } from "react"
+import TaskRow from "../components/TaskRow"
+import { GlobalContext } from "../context/GlobalContext"
 
 function TaskList() {
   const { tasks } = useContext(GlobalContext)

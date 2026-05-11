@@ -1,36 +1,28 @@
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from "react"
 
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~"
 
 function AddTask() {
-  const [title, setTitle] = useState('')
-  const [titleError, setTitleError] = useState('')
+  const [title, setTitle] = useState("")
   const descriptionRef = useRef(null)
   const statusRef = useRef(null)
 
-  function validateTitle(value) {
-    if (value.trim() === '') {
-      setTitleError('Task name is required.')
-      return false
+  const titleError = useMemo(() => {
+    if (!title.trim()) {
+      return "Task name is required."
     }
 
-    for (let i = 0; i < value.length; i += 1) {
-      if (symbols.includes(value[i])) {
-        setTitleError('Task name cannot contain special symbols.')
-        return false
-      }
+    if ([...title].some((char) => symbols.includes(char))) {
+      return "Task name cannot contain special symbols."
     }
 
-    setTitleError('')
-    return true
-  }
+    return ""
+  }, [title])
 
   function handleSubmit(event) {
     event.preventDefault()
 
-    const isTitleValid = validateTitle(title)
-
-    if (!isTitleValid) {
+    if (titleError) {
       return
     }
 
@@ -54,11 +46,7 @@ function AddTask() {
             id="title"
             type="text"
             value={title}
-            onChange={(event) => {
-              const newTitle = event.target.value
-              setTitle(newTitle)
-              validateTitle(newTitle)
-            }}
+            onChange={(event) => setTitle(event.target.value)}
           />
         </div>
         {titleError && <p className="form-error">{titleError}</p>}
@@ -71,9 +59,11 @@ function AddTask() {
         <div className="form-group">
           <label htmlFor="status">Status</label>
           <select id="status" ref={statusRef} defaultValue="To do">
-            <option value="To do">To do</option>
-            <option value="Doing">Doing</option>
-            <option value="Done">Done</option>
+            {["To do", "Doing", "Done"].map((value, index) => (
+              <option key={index} value={value}>
+                {value}
+              </option>
+            ))}
           </select>
         </div>
 

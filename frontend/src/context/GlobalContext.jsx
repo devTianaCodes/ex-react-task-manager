@@ -1,5 +1,5 @@
-import { createContext } from 'react'
-import useTasks from '../hooks/useTasks'
+import { createContext } from "react"
+import useTasks from "../hooks/useTasks"
 
 const GlobalContext = createContext()
 

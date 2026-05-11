@@ -1,8 +1,8 @@
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
-import { GlobalProvider } from './context/GlobalContext'
-import AddTask from './pages/AddTask'
-import TaskList from './pages/TaskList'
-import './App.css'
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom"
+import { GlobalProvider } from "./context/GlobalContext"
+import AddTask from "./pages/AddTask"
+import TaskList from "./pages/TaskList"
+import "./App.css"
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? 'nav-button nav-button-active' : 'nav-button'
+                isActive ? "nav-button nav-button-active" : "nav-button"
               }
             >
               Task List
@@ -21,7 +21,7 @@ function App() {
             <NavLink
               to="/add-task"
               className={({ isActive }) =>
-                isActive ? 'nav-button nav-button-active' : 'nav-button'
+                isActive ? "nav-button nav-button-active" : "nav-button"
               }
             >
               Add Task

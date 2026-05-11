@@ -1,14 +1,14 @@
-import { memo } from 'react'
+import { memo } from "react"
 
 const TaskRow = memo(({ task }) => {
-  let statusColor = ''
+  let statusColor = ""
 
-  if (task.status === 'To do') {
-    statusColor = '#f7c8c8'
-  } else if (task.status === 'Doing') {
-    statusColor = '#f8edb8'
-  } else if (task.status === 'Done') {
-    statusColor = '#cfeccf'
+  if (task.status === "To do") {
+    statusColor = "#f7c8c8"
+  } else if (task.status === "Doing") {
+    statusColor = "#f8edb8"
+  } else if (task.status === "Done") {
+    statusColor = "#cfeccf"
   }
 
   return (
@@ -20,4 +20,4 @@ const TaskRow = memo(({ task }) => {
   )
 })
 
-export default TaskRow;
+export default TaskRow
