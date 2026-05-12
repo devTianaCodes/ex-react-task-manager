@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import EditTaskModal from "../components/EditTaskModal";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import { GlobalContext } from "../context/GlobalContext";
@@ -15,11 +16,19 @@ function TaskDetail() {
   const navigate = useNavigate();
 
   // Milestone 8: contesto espone task e funzione removeTask.
-  const { tasks, removeTask } = useContext(GlobalContext);
+  const { tasks, removeTask, updateTask } = useContext(GlobalContext);
   
   // Milestone 9: stato booleano controlla l'apertura della modale di conferma.
   const [showModal, setShowModal] = useState(false);
 
+
+  // Milestone 10: stato booleano controlla l'apertura della modale di modifica.
+  const [showEditModal, setShowEditModal] = useState(false);
+
+
+
+
+  
   const task = tasks.find((currentTask) => currentTask.id === Number(id));
 
   if (!task) {
@@ -48,16 +57,48 @@ function TaskDetail() {
     setShowModal(false);
   };
 
+  // Milestone 10: click sul bottone apre la modale di modifica.
+  const handleOpenEditModal = () => {
+    setShowEditModal(true);
+  };
+
+  // Milestone 10: funzione chiude la modale di modifica senza salvare.
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  // Milestone 10: handleSave aggiorna la task, mostra un alert e chiude la modale.
+  const handleSave = async (updatedTask) => {
+    try {
+      await updateTask(updatedTask);
+      alert("Task updated successfully.");
+      setShowEditModal(false);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <div>
       <h1>{task.title}</h1>
       <p>Description: {task.description}</p>
       <p>Status: {task.status}</p>
       <p>Created At: {new Date(task.createdAt).toLocaleDateString()}</p>
+
+      <button type="button" onClick={handleOpenEditModal}>
+        Edit Task
+      </button>
       
       <button type="button" onClick={handleOpenModal}>
         Delete Task
       </button>
+
+      <EditTaskModal
+        show={showEditModal}
+        onClose={handleCloseEditModal}
+        task={task}
+        onSave={handleSave}
+      />
       
       <Modal
         title="Conferma eliminazione"
