@@ -37,7 +37,7 @@ function Modal({
         }}
       >
         <h2>{title}</h2>
-        <p>{content}</p>
+        <div>{content}</div>
         <div
           style={{
             display: "flex",
