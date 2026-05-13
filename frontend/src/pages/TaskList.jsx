@@ -32,30 +32,36 @@ function TaskList() {
   };
 
 
-  // Milestone 11: useMemo ricalcola l'array ordinato solo quando cambiano dati o criterio.
-  const sortedTasks = useMemo(() => {
-    return [...tasks].sort((firstTask, secondTask) => {
-      let comparison; // Variabile per memorizzare il risultato del confronto
+  // Milestone 12: useMemo filtra e ordina i task quando cambiano dati o criteri.
+  const filteredAndSortedTasks = useMemo(() => {
 
-      if (sortBy === "title") {
-        comparison = firstTask.title.localeCompare(secondTask.title);
-      } 
-      else if (sortBy === "status") {
-        const statusOptions = ["To do", "Doing", "Done"];
-        const firstIndex = statusOptions.indexOf(firstTask.status);
-        const secondIndex = statusOptions.indexOf(secondTask.status);
-        comparison = firstIndex - secondIndex;
-      } 
-      else if (sortBy === "createdAt") {
-        const firstDate = new Date(firstTask.createdAt).getTime();
-        const secondDate = new Date(secondTask.createdAt).getTime();
-        comparison = firstDate - secondDate;
-      }
+    return [...tasks]
+      .filter((task) =>
+        task.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((firstTask, secondTask) => {
+        let comparison; // Variabile per memorizzare il risultato del confronto
 
-      return comparison * sortOrder;
-    });
-    
-  }, [tasks, sortBy, sortOrder]);
+        if (sortBy === "title") {
+          comparison = firstTask.title.localeCompare(secondTask.title);
+        } 
+        else if (sortBy === "status") {
+          const statusOptions = ["To do", "Doing", "Done"];
+          const firstIndex = statusOptions.indexOf(firstTask.status);
+          const secondIndex = statusOptions.indexOf(secondTask.status);
+          comparison = firstIndex - secondIndex;
+        } 
+        else if (sortBy === "createdAt") {
+          const firstDate = new Date(firstTask.createdAt).getTime();
+          const secondDate = new Date(secondTask.createdAt).getTime();
+          comparison = firstDate - secondDate;
+        }
+
+        return comparison * sortOrder;
+      });
+
+      
+  }, [tasks, sortBy, sortOrder, searchQuery]);
 
 
 
@@ -123,7 +129,7 @@ function TaskList() {
 
           {/* Milestone 3: ogni riga è delegata a TaskRow per separare il rendering. */}
 
-          {sortedTasks.map((task) => (
+          {filteredAndSortedTasks.map((task) => (
             <TaskRow key={task.id} task={task} />
           ))}
         </tbody>
