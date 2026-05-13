@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import TaskRow from "../components/TaskRow";
 import { GlobalContext } from "../context/GlobalContext";
 
@@ -7,12 +7,15 @@ import { GlobalContext } from "../context/GlobalContext";
 function TaskList() {
   // Milestone 3: questa pagina legge i task dal contesto globale.
   const { tasks } = useContext(GlobalContext);
+
   // Milestone 11: stato salva il criterio corrente di ordinamento.
   const [sortBy, setSortBy] = useState("createdAt");
+
   // Milestone 11: stato salva la direzione corrente di ordinamento.
   const [sortOrder, setSortOrder] = useState(1);
   
   const sortIcon = sortOrder === 1 ? "↓" : "↑";
+
 
   // Milestone 11: click sull'intestazione cambia criterio o inverte la direzione.
   const handleSort = (column) => {
@@ -24,6 +27,35 @@ function TaskList() {
     setSortBy(column);
     setSortOrder(1);
   };
+
+
+  // Milestone 11: useMemo ricalcola l'array ordinato solo quando cambiano dati o criterio.
+  const sortedTasks = useMemo(() => {
+    return [...tasks].sort((firstTask, secondTask) => {
+      let comparison; // Variabile per memorizzare il risultato del confronto
+
+      if (sortBy === "title") {
+        comparison = firstTask.title.localeCompare(secondTask.title);
+      } 
+      else if (sortBy === "status") {
+        const statusOptions = ["To do", "Doing", "Done"];
+        const firstIndex = statusOptions.indexOf(firstTask.status);
+        const secondIndex = statusOptions.indexOf(secondTask.status);
+        comparison = firstIndex - secondIndex;
+      } 
+      else if (sortBy === "createdAt") {
+        const firstDate = new Date(firstTask.createdAt).getTime();
+        const secondDate = new Date(secondTask.createdAt).getTime();
+        comparison = firstDate - secondDate;
+      }
+
+      return comparison * sortOrder;
+    });
+    
+  }, [tasks, sortBy, sortOrder]);
+
+
+
 
   return (
     <div className="task-list-container">
@@ -78,7 +110,7 @@ function TaskList() {
 
           {/* Milestone 3: ogni riga è delegata a TaskRow per separare il rendering. */}
 
-          {tasks.map((task) => (
+          {sortedTasks.map((task) => (
             <TaskRow key={task.id} task={task} />
           ))}
         </tbody>

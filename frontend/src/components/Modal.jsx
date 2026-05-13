@@ -8,6 +8,8 @@ function Modal({
   onConfirm,//callback per eseguire l'azione quando si conferma
   confirmText = "Conferma",
 }) {
+
+  
   // Milestone 9: show controlla se la modale deve essere visibile o nascosta.
   if (!show) {
     return null;
@@ -50,7 +52,7 @@ function Modal({
           <button type="button" onClick={onClose}>
             Annulla
           </button>
-          
+
           {/* Milestone 9: pulsante Conferma esegue l'azione ricevuta nelle props. */}
           <button type="button" onClick={onConfirm}>
             {confirmText}
