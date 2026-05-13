@@ -13,6 +13,9 @@ function TaskList() {
 
   // Milestone 11: stato salva la direzione corrente di ordinamento.
   const [sortOrder, setSortOrder] = useState(1);
+
+  // Milestone 12: stato salva il valore della ricerca digitata dall'utente.
+  const [searchQuery, setSearchQuery] = useState("");
   
   const sortIcon = sortOrder === 1 ? "↓" : "↑";
 
@@ -60,8 +63,18 @@ function TaskList() {
   return (
     <div className="task-list-container">
       <h1 className="task-list-title">Task List</h1>
-      {/* Milestone 3: tabella connome, stato e data di creazione. */}
+     
 
+      {/* Milestone 12: input controllato permette di cercare una task per nome. */}
+      <input
+        type="text"
+        placeholder="Search task"
+        value={searchQuery}
+        onChange={(event) => setSearchQuery(event.target.value)}
+      />
+
+
+      {/* Milestone 3: tabella connome, stato e data di creazione. */}
       <table className="task-table">
         <thead>
           <tr>
