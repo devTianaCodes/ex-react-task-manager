@@ -27,20 +27,50 @@ function TaskList() {
 
   return (
     <div className="task-list-container">
-      <h1>Task List</h1>
+      <h1 className="task-list-title">Task List</h1>
       {/* Milestone 3: tabella connome, stato e data di creazione. */}
 
-      <table>
+      <table className="task-table">
         <thead>
           <tr>
-            <th onClick={() => handleSort("title")}>
-              Name {sortBy === "title" && sortIcon}
+            <th
+              className={sortBy === "title" ? "task-table-sort-active" : ""}
+              onClick={() => handleSort("title")}
+              style={{
+                backgroundColor:
+                  sortBy === "title" ? "#f7f1dd" : "#d9f0eb",
+              }}
+            >
+              <span className="task-table-header-label">Name</span>
+              <span className="task-table-sort-icon">
+                {sortBy === "title" ? sortIcon : " "}
+              </span>
             </th>
-            <th onClick={() => handleSort("status")}>
-              Status {sortBy === "status" && sortIcon}
+            <th
+              className={sortBy === "status" ? "task-table-sort-active" : ""}
+              onClick={() => handleSort("status")}
+              style={{
+                backgroundColor:
+                  sortBy === "status" ? "#f7f1dd" : "#d9f0eb",
+              }}
+            >
+              <span className="task-table-header-label">Status</span>
+              <span className="task-table-sort-icon">
+                {sortBy === "status" ? sortIcon : " "}
+              </span>
             </th>
-            <th onClick={() => handleSort("createdAt")}>
-              Creation Date {sortBy === "createdAt" && sortIcon}
+            <th
+              className={sortBy === "createdAt" ? "task-table-sort-active" : ""}
+              onClick={() => handleSort("createdAt")}
+              style={{
+                backgroundColor:
+                  sortBy === "createdAt" ? "#f7f1dd" : "#d9f0eb",
+              }}
+            >
+              <span className="task-table-header-label">Creation Date</span>
+              <span className="task-table-sort-icon">
+                {sortBy === "createdAt" ? sortIcon : " "}
+              </span>
             </th>
           </tr>
         </thead>
