@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import TaskRow from "../components/TaskRow";
 import { GlobalContext } from "../context/GlobalContext";
 
@@ -31,6 +31,7 @@ function TaskList() {
     setSortOrder(1);
   };
 
+  
 
   // Milestone 12: useMemo filtra e ordina i task quando cambiano dati o criteri.
   const filteredAndSortedTasks = useMemo(() => {
@@ -64,6 +65,24 @@ function TaskList() {
   }, [tasks, sortBy, sortOrder, searchQuery]);
 
 
+  // Milestone 12: debounce ritarda l'aggiornamento della ricerca per migliorare le prestazioni.
+  const debounce = useCallback((callback, delay) => {
+    let timeoutId;
+
+    return (value) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        callback(value);
+      }, delay);
+    };
+  }, []);
+
+  // Milestone 12: funzione memorizzata aggiorna la ricerca con un piccolo ritardo.
+  const debouncedSetSearchQuery = useCallback(
+    debounce(setSearchQuery, 500),
+    []
+  );
+
 
 
   return (
@@ -71,12 +90,11 @@ function TaskList() {
       <h1 className="task-list-title">Task List</h1>
      
 
-      {/* Milestone 12: input controllato permette di cercare una task per nome. */}
+      {/* Milestone 12: input non controllato permette di cercare una task per nome. */}
       <input
         type="text"
         placeholder="Search task"
-        value={searchQuery}
-        onChange={(event) => setSearchQuery(event.target.value)}
+        onChange={(event) => debouncedSetSearchQuery(event.target.value)}
       />
 
 
