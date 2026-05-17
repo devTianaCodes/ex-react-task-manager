@@ -43,19 +43,33 @@ function Modal({
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
             gap: "12px",
             marginTop: "20px",
           }}
         >
           {/* Milestone 9: pulsante Annulla chiude la modale senza confermare. */}
-          <button type="button" onClick={onClose}>
-            Cancel
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              borderColor: "#c96b6b",
+              color: "#8f3f3f",
+            }}
+          >
+            X Cancel
           </button>
 
           {/* Milestone 9: pulsante Conferma esegue l'azione ricevuta nelle props. */}
-          <button type="button" onClick={onConfirm}>
-            {confirmText}
+          <button
+            type="button"
+            onClick={onConfirm}
+            style={{
+              borderColor: "#7fb8af",
+              color: "#2f6f64",
+            }}
+          >
+            V {confirmText}
           </button>
         </div>
       </div>

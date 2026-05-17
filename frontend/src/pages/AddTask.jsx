@@ -115,7 +115,7 @@ function AddTask() {
           </select>
         </div>
 
-          //bottone disabilitato se c'è un errore di validazione del titolo.
+        {/* bottone disabilitato se c'è un errore di validazione del titolo. */}
         <div className="submit-container">
           <button type="submit" disabled={Boolean(taskTitleError)}>
             Add Task
