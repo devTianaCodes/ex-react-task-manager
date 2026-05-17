@@ -84,13 +84,15 @@ function TaskDetail() {
       <p>Created At: {new Date(task.createdAt).toLocaleDateString()}</p> 
       {/*toLocaleDateString converte la data in un formato leggibile.*/}
 
-      <button type="button" onClick={handleOpenEditModal}>
-        Edit Task
-      </button>
-      
-      <button type="button" onClick={handleOpenModal}>
-        Delete Task
-      </button>
+      <div className="task-detail-actions">
+        <button type="button" onClick={handleOpenEditModal}>
+          Edit Task
+        </button>
+        
+        <button type="button" onClick={handleOpenModal}>
+          Delete Task
+        </button>
+      </div>
 
       <EditTaskModal
         show={showEditModal}

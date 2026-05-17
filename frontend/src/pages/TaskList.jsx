@@ -93,6 +93,7 @@ function TaskList() {
 
       {/* Milestone 12: input non controllato permette di cercare una task per nome. */}
       <input
+        className="task-search-input"
         type="text"
         placeholder="Search task"
         onChange={(event) => debouncedSetSearchQuery(event.target.value)}
@@ -171,4 +172,3 @@ export default TaskList;
 //     Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
 
 //     Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione.
-
