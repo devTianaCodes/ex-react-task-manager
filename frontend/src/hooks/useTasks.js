@@ -30,18 +30,43 @@ function useTasks() {  //useTasks hook centralizza stato e operazioni dei task.
   }, [VITE_API_URL]);
 
 
+//   📌 Milestone 6 - Integrazione dell'API per Aggiungere un Task (POST)
 
-  // Milestone 6:  funzione addTask  invia una POST e aggiorna lo stato se la creazione riesce.
+// Collegare il form di AddTask all'API e completare la funzione addTask in useTasks().
+
+//     Completare la funzione addTask in useTasks():
+
+//         La funzione deve ricevere un oggetto contenente le proprietà title, description e status.
+
+//         Effettuare una chiamata API POST /tasks, inviando l’oggetto come body in formato JSON.
+
+//         La chiamata API restituisce un oggetto con la seguente struttura:
+
+//             In caso di successo:
+
+//             { success: true, task: /* la task creata */ }
+
+//             In caso di errore:
+
+//             { success: false, message: "Messaggio di errore" }
+
+//         La funzione addTask deve controllare il valore di success nella risposta:
+//             Se success è true, aggiornare lo stato globale aggiungendo la nuova task.
+//             Se success è false, lanciare un errore con message come testo.
+
+
+  // funzione addTask  invia una POST e aggiorna lo stato se la creazione riesce.
   const addTask = async (newTask) => {
-    const response = await fetch(`${VITE_API_URL}/tasks`, {
-      method: "POST",
-      headers: {
+    const response = await fetch(`${VITE_API_URL}/tasks`, {//
+      method: "POST",//
+      headers: {// Specifica che il body della richiesta è in formato JSON
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newTask),
+      body: JSON.stringify(newTask),// Converte l'oggetto newTask in una stringa JSON da inviare come corpo della richiesta
     });
 
     const { success, message, task } = await response.json();
+    // Attende la risposta e la converte in formato JSON, estraendo i campi success, message e task
 
     if (!success) {
       throw new Error(message);

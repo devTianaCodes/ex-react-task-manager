@@ -2,20 +2,38 @@ import { useContext, useMemo, useRef, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 
 
+// 📌 Milestone 5 - Creazione del Form per Aggiungere un Task
 
-// Milestone 5: costante contiene i simboli non permessi nel titolo.
+// Creare un form per aggiungere un task, senza ancora inviare i dati all'API.
+
+//     Aggiornare la pagina AddTask.jsx per contenere un form con i seguenti campi:
+//         Nome del task (title) → Input controllato (useState).
+//         Descrizione (description) → Textarea non controllata (useRef).
+//         Stato (status) → Select non controllata (useRef), con opzioni "To do", "Doing", "Done", e valore predefinito "To do".
+
+//     Validare il campo Nome (title):
+//         Il campo non può essere vuoto.
+//         Non può contenere simboli speciali.
+//         Se il valore è errato, mostrare un messaggio di errore.
+//         Utilizzare una costante con i caratteri vietati:
+
+//     const symbols = "!@#$%^&*()-_=+[]{}|;:'\\",.<>?/`~";
+
+//     Gestione del Submit del Form:
+//         Al click del bottone "Aggiungi Task", il form deve SOLO stampare in console l’oggetto task con i valori inseriti (NON deve ancora essere inviata la richiesta all’API).
+
+
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
 
 
-
 function AddTask() {
-  // Milestone 6: pagina addTask usa il contesto per creare una nuova task.
+  // pagina addTask usa il contesto per creare una nuova task.
   const { addTask } = useContext(GlobalContext);
 
-  // Milestone 5: il titolo è un campo controllato gestito con useState.
-  const [title, setTitle] = useState("");
+  // titolo è un campo controllato gestito con useState.
+  const [taskTitle, setTitle] = useState("");
 
-  // Milestone 5: descrizione e stato sono campi non controllati gestiti con useRef.
+  // descrizione e stato sono campi non controllati gestiti con useRef.
   const descriptionRef = useRef(null);
   const statusRef = useRef(null);
 
@@ -37,30 +55,40 @@ function AddTask() {
   // }
 
 
-  // Milestone 5: controllo calcola l'errore del titolo senza salvare stato extra.
-  const titleError = useMemo(() => {
-    if (!title.trim()) {
+  // controllo calcola l'errore del titolo senza salvare stato extra.
+  const taskTitleError = useMemo(() => {
+    if (!taskTitle.trim()) {
       return "Task name is required.";
     }
 
-    if ([...title].some((char) => symbols.includes(char))) {
+    if ([...taskTitle].some((char) => symbols.includes(char))) {
       return "Task name cannot contain special symbols.";
     }
 
     return "";
-  }, [title]);
+  }, [taskTitle]);
   
 
-  // Milestone 6:  submit valida, invia la task e resetta il form se va tutto bene.
-  async function handleSubmit(event) {
+  // 📌 Milestone 6 - Integrazione dell'API per Aggiungere un Task (POST)
+
+  //   2. Modificare la gestione del Submit del Form in AddTask.jsx:
+  //       Eseguire la funzione addTask di useTasks(), passando l’oggetto con title, description e status.
+  //       Se la funzione esegue correttamente l'operazione:
+  //           Mostrare un alert di conferma dell’avvenuta creazione della task.
+  //           Resettare il form.
+  //       Se la funzione lancia un errore:
+  //           Mostrare un alert con il messaggio di errore ricevuto.
+
+  // submit valida, invia la task e resetta il form se va tutto bene o erore
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (titleError) {
+    if (taskTitleError) {
       return;
     };
 
     const newTask = {
-      title: title.trim(),
+      title: taskTitle.trim(),
       description: descriptionRef.current.value,
       status: statusRef.current.value,
     }
@@ -90,11 +118,11 @@ function AddTask() {
           <input
             id="title"
             type="text"
-            value={title}
+            value={taskTitle}
             onChange={(event) => setTitle(event.target.value)}
           />
         </div>
-        {titleError && <p className="form-error">{titleError}</p>}
+        {taskTitleError && <p className="form-error">{taskTitleError}</p>}
 
         <div className="form-group">
           <label htmlFor="description">Description</label>
@@ -117,14 +145,15 @@ function AddTask() {
           </select>
         </div>
 
+          //bottone disabilitato se c'è un errore di validazione del titolo.
         <div className="submit-container">
-          <button type="submit" disabled={Boolean(titleError)}>
+          <button type="submit" disabled={Boolean(taskTitleError)}>
             Add Task
           </button>
         </div>
       </form>
     </div>
   );
-}
+} 
 
 export default AddTask;

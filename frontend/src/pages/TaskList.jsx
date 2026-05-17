@@ -13,7 +13,7 @@ import { GlobalContext } from "../context/GlobalContext";
 
 
 function TaskList() {
-  // Milestone 3: questa pagina legge i task dal contesto globale.
+  // Milestone 3:  legge i task dal contesto globale.
   const { tasks } = useContext(GlobalContext);
 
   // Milestone 11: stato salva il criterio corrente di ordinamento.
@@ -111,8 +111,8 @@ function TaskList() {
         <thead>
           <tr>
             <th
-              className={sortBy === "title" ? "task-table-sort-active" : ""}
-              onClick={() => handleSort("title")}
+              className={sortBy === "title" ? "task-table-sort-active" : ""} //evidenzia colonna ordinamento attivo.
+              onClick={() => handleSort("title")}// click cambia criterio o inverte direzione.
               style={{
                 backgroundColor:
                   sortBy === "title" ? "#f7f1dd" : "#d9f0eb",
@@ -123,6 +123,7 @@ function TaskList() {
                 {sortBy === "title" ? sortIcon : " "}
               </span>
             </th>
+
             <th
               className={sortBy === "status" ? "task-table-sort-active" : ""}
               onClick={() => handleSort("status")}
@@ -136,6 +137,7 @@ function TaskList() {
                 {sortBy === "status" ? sortIcon : " "}
               </span>
             </th>
+
             <th
               className={sortBy === "createdAt" ? "task-table-sort-active" : ""}
               onClick={() => handleSort("createdAt")}
@@ -149,6 +151,7 @@ function TaskList() {
                 {sortBy === "createdAt" ? sortIcon : " "}
               </span>
             </th>
+
           </tr>
         </thead>
         <tbody>
