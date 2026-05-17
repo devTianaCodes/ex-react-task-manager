@@ -1,12 +1,17 @@
 import ReactDOM from "react-dom";
+import "./Modal.css";
+
+
 
 function Modal({
+
   title, //il titolo della modale
   content, //il contenuto della modale
   show,//stato booleano per mostrare o nascondere la modale.
   onClose, //callback per chiudere la modale senza confermare
   onConfirm,//callback per eseguire l'azione quando si conferma
   confirmText = "Confirm",
+
 }) {
 
   
@@ -17,57 +22,27 @@ function Modal({
 
   // Milestone 9: createPortal rende la modale indipendente dal flusso della pagina.
   return ReactDOM.createPortal( //oppure destrutturato dall import
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "24px",
-          borderRadius: "12px",
-          minWidth: "320px",
-        }}
-      >
+    
+    <div className="modal-overlay">
+      <div className="modal-card">
         <h2>{title}</h2>
         <div>{content}</div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "12px",
-            marginTop: "20px",
-          }}
-        >
-          {/* Milestone 9: pulsante Annulla chiude la modale senza confermare. */}
+        <div className="modal-actions">
+          
+          {/* pulsante Annulla chiude la modale senza confermare. */}
           <button
+            className="modal-cancel-button"
             type="button"
             onClick={onClose}
-            style={{
-              borderColor: "#c96b6b",
-              color: "#8f3f3f",
-            }}
           >
             X Cancel
           </button>
 
-          {/* Milestone 9: pulsante Conferma esegue l'azione ricevuta nelle props. */}
+          {/* Conferma esegue l'azione ricevuta nelle props. */}
           <button
+            className="modal-confirm-button"
             type="button"
             onClick={onConfirm}
-            style={{
-              borderColor: "#7fb8af",
-              color: "#2f6f64",
-            }}
           >
             V {confirmText}
           </button>

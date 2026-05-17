@@ -100,7 +100,7 @@ function TaskDetail() {
         task={task}
         onSave={handleSave}
       />
-      
+  
       <Modal
         title="Confirm Deletion"
         content="Do you really want to delete this task?"
