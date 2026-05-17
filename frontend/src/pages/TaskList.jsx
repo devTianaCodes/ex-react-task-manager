@@ -34,36 +34,45 @@ function TaskList() {
 
   
 
-  // Milestone 12: useMemo filtra e ordina i task quando cambiano dati o criteri.
-  const filteredAndSortedTasks = useMemo(() => {
+  // Milestone 11: useMemo ordina i task quando cambiano dati o criteri.
+  const sortedTask = useMemo(() => {
 
-    return [...tasks]
-      .filter((task) =>
-        task.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      .sort((firstTask, secondTask) => {
+    return [...tasks].sort((a, b) => {
         let comparison; // Variabile per memorizzare il risultato del confronto
 
         if (sortBy === "title") {
-          comparison = firstTask.title.localeCompare(secondTask.title);
+          comparison = a.title.localeCompare(b.title);
         } 
+
         else if (sortBy === "status") {
           const statusOptions = ["To do", "Doing", "Done"];
-          const firstIndex = statusOptions.indexOf(firstTask.status);
-          const secondIndex = statusOptions.indexOf(secondTask.status);
-          comparison = firstIndex - secondIndex;
+          const indexA = statusOptions.indexOf(a.status);
+          const indexB = statusOptions.indexOf(b.status);
+          comparison = indexA - indexB;
         } 
+
         else if (sortBy === "createdAt") {
-          const firstDate = new Date(firstTask.createdAt).getTime();
-          const secondDate = new Date(secondTask.createdAt).getTime();
-          comparison = firstDate - secondDate;
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          comparison = dateA - dateB;
         }
 
         return comparison * sortOrder;
       });
 
       
-  }, [tasks, sortBy, sortOrder, searchQuery]);
+  }, [tasks, sortBy, sortOrder]);
+
+
+
+  // Milestone 12: useMemo filtra i task ordinati quando cambia la ricerca.
+  const filteredAndSortedTasks = useMemo(() => {
+
+    return sortedTask.filter((task) =>
+      task.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+  }, [sortedTask, searchQuery]);
 
 
   // Milestone 12: debounce ritarda l'aggiornamento della ricerca per migliorare le prestazioni.
@@ -168,7 +177,52 @@ export default TaskList;
 // 📌 Milestone 3 - Lista dei Task (Pagina)
 
 // Visualizzare l'elenco dei task in una tabella e ottimizzare il rendering con React.memo().
-
 //     Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
-
 //     Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione.
+
+
+
+// 📌 Milestone 11 - Ordinamento delle Task
+
+// Implementare un sistema di ordinamento nella tabella delle task, permettendo all'utente di ordinare i task in base a diversi criteri.
+
+//     1 Aggiungere due state in TaskList.jsx:
+//         sortBy: rappresenta il criterio di ordinamento (title, status, createdAt).
+//         sortOrder: rappresenta la direzione (1 per crescente, -1 per decrescente).
+//         Il default di sortBy è createdAt, il default di sortOrder, è 1.
+
+//     2 Modificare la tabella per rendere cliccabili le intestazioni (th), in modo che al click:
+//         Se la colonna è già selezionata (sortBy uguale alla colonna cliccata), invertire sortOrder.
+//         Se la colonna è diversa, impostare sortBy sulla nuova colonna e sortOrder su 1.
+
+//     3 Implementare la logica di ordinamento con useMemo(), in modo che l’array ordinato venga ricalcolato solo quando cambiano tasks, sortBy o sortOrder:
+//         Ordinamento per title → alfabetico (localeCompare).
+//         Ordinamento per status → ordine predefinito: "To do" < "Doing" < "Done".
+//         Ordinamento per createdAt → confrontando il valore numerico della data (.getTime()).
+//         Applicare sortOrder per definire se l’ordine è crescente o decrescente.
+
+
+
+
+// 📌 Milestone 12 - Ricerca dei Task con Debounce
+
+// Aggiungere un campo di ricerca che permette all’utente di filtrare i task in base al nome, ottimizzando le prestazioni con debounce.
+
+//     1 Creare un input di ricerca controllato
+//         Aggiungere un input di ricerca controllato in TaskList.jsx sopra la tabella, in modo che l’utente possa digitare per cercare un task.
+//         Creare uno stato searchQuery (useState) per memorizzare il valore dell'input.
+
+//     2 Modificare l'useMemo() per filtrare e ordinare i task
+//         Applicare il filtraggio basato su searchQuery.
+//         La ricerca deve essere case insensitive.
+//         Ordinare i risultati in base ai criteri esistenti (es. nome, stato, data di creazione).
+
+//     3 Aggiungere il debounce per migliorare le prestazioni
+
+//         Creare una funzione debounce con setTimeout() per ritardare l’aggiornamento di searchQuery.
+//         Usare useCallback() per memorizzare la funzione di debounce e prevenire inutili ricalcoli.
+
+
+//         💡 Importante:
+//             Il debounce non funziona bene sugli input controllati.
+//             Rimuovere value dall’input, rendendolo non controllato, affinché il debounce possa funzionare correttamente.
