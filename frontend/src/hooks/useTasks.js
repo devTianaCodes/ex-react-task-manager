@@ -1,17 +1,27 @@
 import { useEffect, useState } from "react";
 
+// //Milestone 4 - Creazione del Custom Hook useTasks() (GET)
+
+// Creare un custom hook per centralizzare la gestione dei task e semplificare l'accesso ai dati.
+
+//     Creare un hook useTasks() che recupera i task iniziali con una richiesta GET a /tasks e li memorizza in uno stato locale (useState).
+
+//     Definire le funzioni addTask, removeTask, updateTask all'interno di useTasks(), lasciandole vuote per ora.
+
+//     Rendere disponibili le funzioni e la lista dei task restituendole come valore dell'hook.
+
+//     Integrare useTasks() nel GlobalContext, in modo che tutti i componenti possano accedere ai task e alle funzioni di gestione.
 
 
-// Milestone 4: useTasks hook centralizza stato e operazioni dei task.
-function useTasks() {
+function useTasks() {  //useTasks hook centralizza stato e operazioni dei task.
 
-  // Milestone 4: lo stato locale salva la lista dei task.
+  // stato locale salva la lista dei task.
   const [tasks, setTasks] = useState([]); //dependency array vuoto per eseguire l'effetto solo una volta al montaggio del componente
   
   const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   
-  // Milestone 2: questo effetto recupera i task iniziali dall'API.
+  // Milestone 2 migrato da globalContext questo effetto recupera i task iniziali dall'API.
   useEffect(() => {
     fetch(`${VITE_API_URL}/tasks`)
       .then((response) => response.json())

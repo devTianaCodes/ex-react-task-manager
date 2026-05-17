@@ -5,15 +5,28 @@ import TaskDetail from "./pages/TaskDetail";
 import TaskList from "./pages/TaskList";
 import "./App.css";
 
+// Milestone 1 - Setup e Routing
+
+//...
+//     Aggiungere una barra di navigazione con NavLink, per permettere all'utente di spostarsi tra le pagine.
+
+//     Definire le rotte con Routes e Route, associando ogni percorso alla rispettiva pagina.
 
 
 function App() {
+
+
   return (
+
     <GlobalProvider>
-      {/* Milestone 1: BrowserRouter gestisce la navigazione principale tra le pagine. */}
+
+      {/* Milestone 1: aggiunto BrowserRouter per gestire la navigazione principale tra le pagine. */}
+      
       <BrowserRouter>
         <div className="app-container">
-          {/* Milestone 1: questa navbar usa NavLink per spostarsi tra lista e form. */}
+          
+          {/* Milestone 1: aggiunto la navbar che usa NavLink per spostarsi tra lista e form. */}
+          
           <nav className="main-nav">
             <NavLink
               to="/"
@@ -23,6 +36,7 @@ function App() {
             >
               Task List
             </NavLink>
+
             <NavLink
               to="/add-task"
               className={({ isActive }) =>
@@ -32,14 +46,17 @@ function App() {
               Add Task
             </NavLink>
           </nav>
-          {/* Milestone 1: queste rotte collegano ogni URL alla sua pagina. */}
+
+          {/* Milestone 1: le rotte collegano ogni URL alla sua pagina. */}
           <Routes>
             <Route path="/" element={<TaskList />} />
             <Route path="/add-task" element={<AddTask />} />
             <Route path="/task/:id" element={<TaskDetail />} />
           </Routes>
         </div>
+
       </BrowserRouter>
+      
     </GlobalProvider>
   );
 }
