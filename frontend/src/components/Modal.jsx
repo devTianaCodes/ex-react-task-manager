@@ -6,7 +6,7 @@ function Modal({
   show,//stato booleano per mostrare o nascondere la modale.
   onClose, //callback per chiudere la modale senza confermare
   onConfirm,//callback per eseguire l'azione quando si conferma
-  confirmText = "Conferma",
+  confirmText = "Confirm",
 }) {
 
   
@@ -50,7 +50,7 @@ function Modal({
         >
           {/* Milestone 9: pulsante Annulla chiude la modale senza confermare. */}
           <button type="button" onClick={onClose}>
-            Annulla
+            Cancel
           </button>
 
           {/* Milestone 9: pulsante Conferma esegue l'azione ricevuta nelle props. */}
@@ -70,7 +70,7 @@ export default Modal;
 
 // Creare un componente Modal riutilizzabile e utilizzarlo per confermare l’eliminazione di un task.
 
-//     Creare il componente Modal.jsx, che deve:
+//     1.Creare il componente Modal.jsx, che deve:
 //         Accettare i seguenti props:
 //             title: il titolo della modale.
 //             content: il contenuto principale della modale.
@@ -81,6 +81,6 @@ export default Modal;
 //         Utilizzare ReactDOM.createPortal per rendere la modale indipendente dal flusso di rendering.
 //         Implementare i pulsanti "Annulla" (chiude la modale) e "Conferma" (esegue onConfirm).
 
-//     Integrare il componente Modal in TaskDetail.jsx per confermare l'eliminazione:
+//     2.Integrare il componente Modal in TaskDetail.jsx per confermare l'eliminazione:
 //         Quando l’utente clicca su "Elimina Task", deve aprirsi la modale di conferma.
 //         Se l’utente conferma, vengono eseguite le stesse operazioni della Milestone 8.

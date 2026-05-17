@@ -5,13 +5,6 @@ import TaskDetail from "./pages/TaskDetail";
 import TaskList from "./pages/TaskList";
 import "./App.css";
 
-// Milestone 1 - Setup e Routing
-
-//...
-//     Aggiungere una barra di navigazione con NavLink, per permettere all'utente di spostarsi tra le pagine.
-
-//     Definire le rotte con Routes e Route, associando ogni percorso alla rispettiva pagina.
-
 
 function App() {
 
@@ -62,3 +55,11 @@ function App() {
 }
 
 export default App;
+
+
+// Milestone 1 - Setup e Routing
+
+//...
+//     Aggiungere una barra di navigazione con NavLink, per permettere all'utente di spostarsi tra le pagine.
+
+//     Definire le rotte con Routes e Route, associando ogni percorso alla rispettiva pagina.

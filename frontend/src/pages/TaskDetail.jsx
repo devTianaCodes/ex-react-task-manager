@@ -102,8 +102,8 @@ function TaskDetail() {
       />
       
       <Modal
-        title="Conferma eliminazione"
-        content="Vuoi davvero eliminare questa task?"
+        title="Confirm Deletion"
+        content="Do you really want to delete this task?"
         show={showModal}
         onClose={handleCloseModal}
         onConfirm={handleDelete}
@@ -143,3 +143,13 @@ export default TaskDetail;
 //             Reindirizzare l’utente alla lista dei task (/).
 //         Se la funzione lancia un errore:
 //             Mostrare un alert con il messaggio di errore ricevuto.
+
+
+
+// 📌 Milestone 9 - Componente Modal e Conferma Eliminazione Task
+
+// Creare un componente Modal riutilizzabile e utilizzarlo per confermare l’eliminazione di un task.
+
+//     2.Integrare il componente Modal in TaskDetail.jsx per confermare l'eliminazione:
+//         Quando l’utente clicca su "Elimina Task", deve aprirsi la modale di conferma.
+//         Se l’utente conferma, vengono eseguite le stesse operazioni della Milestone 8.

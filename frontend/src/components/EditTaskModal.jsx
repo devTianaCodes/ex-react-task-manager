@@ -72,12 +72,12 @@ function EditTaskModal({ show, onClose, task, onSave }) {
 
   return (
     <Modal
-      title="Modifica Task"
+      title="Edit Task"
       content={formContent}
       show={show}
       onClose={onClose}
       onConfirm={handleConfirm}
-      confirmText="Salva"
+      confirmText="Save"
     />
   );
 }
