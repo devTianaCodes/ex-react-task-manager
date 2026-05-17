@@ -81,7 +81,8 @@ function TaskDetail() {
       <h1>{task.title}</h1>
       <p>Description: {task.description}</p>
       <p>Status: {task.status}</p>
-      <p>Created At: {new Date(task.createdAt).toLocaleDateString()}</p> //toLocaleDateString converte la data in un formato leggibile.
+      <p>Created At: {new Date(task.createdAt).toLocaleDateString()}</p> 
+      {/*toLocaleDateString converte la data in un formato leggibile.*/}
 
       <button type="button" onClick={handleOpenEditModal}>
         Edit Task
@@ -132,17 +133,6 @@ export default TaskDetail;
 // 📌 Milestone 8 - Funzione di Eliminazione Task (DELETE)
 
 // Aggiungere la funzionalità di eliminazione di un task con una chiamata API e aggiornare lo stato.
-
-//     1.Completare la funzione removeTask in useTasks():
-//         La funzione deve ricevere un taskId e effettuare una chiamata API DELETE /tasks/:id.
-//         La chiamata API restituisce un oggetto con la seguente struttura:
-//             In caso di successo:
-//             { success: true }
-//             In caso di errore:
-//             { success: false, message: "Messaggio di errore" }
-//         La funzione removeTask deve controllare il valore di success nella risposta:
-//             Se success è true, rimuovere il task dallo stato globale.
-//             Se success è false, lanciare un errore con message come testo.
 
 //     2.Gestire l'eliminazione della task in TaskDetail.jsx:
 //         Al click su "Elimina Task", chiamare removeTask passando l'id del task.

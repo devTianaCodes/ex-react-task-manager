@@ -14,12 +14,15 @@ const TaskRow = memo(({ task }) => {
     statusColor = "#cfeccf";
   }
 
+
+  // Milestone 7: title è un link alla pagina di dettaglio del task.
+  //useParameters legge l'id dalla rotta, Link crea un link alla rotta con l'id del task.
   return (
     <tr>
       <td>
-        // Milestone 7: title è un link alla pagina di dettaglio del task.
-        //useParameters legge l'id dalla rotta, Link crea un link alla rotta con l'id del task.
+    
         <Link to={`/task/${task.id}`}>{task.title}</Link> 
+      
       </td>
       <td style={{ backgroundColor: statusColor }}>{task.status}</td>
       <td>{new Date(task.createdAt).toLocaleDateString()}</td>
