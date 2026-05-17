@@ -2,13 +2,6 @@ import { useCallback, useContext, useMemo, useState } from "react";
 import TaskRow from "../components/TaskRow";
 import { GlobalContext } from "../context/GlobalContext";
 
-// 📌 Milestone 3 - Lista dei Task (Pagina)
-
-// Visualizzare l'elenco dei task in una tabella e ottimizzare il rendering con React.memo().
-
-//     Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
-
-//     Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione.
 
 
 
@@ -168,3 +161,14 @@ function TaskList() {
 }
 
 export default TaskList;
+
+
+
+// 📌 Milestone 3 - Lista dei Task (Pagina)
+
+// Visualizzare l'elenco dei task in una tabella e ottimizzare il rendering con React.memo().
+
+//     Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
+
+//     Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione.
+
