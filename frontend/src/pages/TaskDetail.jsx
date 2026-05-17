@@ -18,7 +18,7 @@ function TaskDetail() {
   const { tasks, removeTask, updateTask } = useContext(GlobalContext);
   
   // Milestone 9: stato booleano controlla l'apertura della modale di conferma.
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Milestone 10: stato booleano controlla l'apertura della modale di modifica.
   const [showEditModal, setShowEditModal] = useState(false);
@@ -37,6 +37,7 @@ function TaskDetail() {
       await removeTask(task.id);
       alert("Task deleted successfully.");
       navigate("/");
+
     } catch (error) {
       console.log(error);
       alert(error.message);
@@ -44,14 +45,16 @@ function TaskDetail() {
   };
 
   // Milestone 9: click sul bottone apre la modale prima dell'eliminazione.
-  const handleOpenModal = () => {
-    setShowModal(true);
+  const handleOpenDeleteModal = () => {
+    setShowDeleteModal(true);
   };
 
   // Milestone 9: funzione chiude la modale senza eliminare la task.
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
   };
+
+
 
   // Milestone 10: click sul bottone apre la modale di modifica.
   const handleOpenEditModal = () => {
@@ -69,6 +72,7 @@ function TaskDetail() {
       await updateTask(updatedTask);
       alert("Task updated successfully.");
       setShowEditModal(false);
+      
     } catch (error) {
       alert(error.message);
     }
@@ -89,7 +93,7 @@ function TaskDetail() {
           Edit Task
         </button>
         
-        <button type="button" onClick={handleOpenModal}>
+        <button type="button" onClick={handleOpenDeleteModal}>
           Delete Task
         </button>
       </div>
@@ -104,8 +108,8 @@ function TaskDetail() {
       <Modal
         title="Confirm Deletion"
         content="Do you really want to delete this task?"
-        show={showModal}
-        onClose={handleCloseModal}
+        show={showDeleteModal}
+        onClose={handleCloseDeleteModal}
         onConfirm={handleDelete}
       />
     </div>
@@ -153,3 +157,16 @@ export default TaskDetail;
 //     2.Integrare il componente Modal in TaskDetail.jsx per confermare l'eliminazione:
 //         Quando l’utente clicca su "Elimina Task", deve aprirsi la modale di conferma.
 //         Se l’utente conferma, vengono eseguite le stesse operazioni della Milestone 8.
+
+
+
+// 📌 Milestone 10 - Modale e Funzione di Modifica Task (PUT)
+
+//     Integrare EditTaskModal in TaskDetail.jsx, con un nuovo bottone "Modifica Task":
+//         Quando l’utente clicca su "Modifica", si apre la modale con il form precompilato.
+//         L'onSave di EditTaskModal deve eseguire la funzione updateTask di useTasks(), passando la task modificata.
+//         Se la funzione esegue correttamente l'operazione:
+//             Mostrare un alert di conferma dell’avvenuta modifica.
+//             Chiudere la modale.
+//         Se la funzione lancia un errore:
+//             Mostrare un alert con il messaggio di errore ricevuto.

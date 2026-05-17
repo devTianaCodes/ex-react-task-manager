@@ -66,7 +66,7 @@ function useTasks() {  //useTasks hook centralizza stato e operazioni dei task.
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-      },
+      }, 
       body: JSON.stringify(updatedTask),
     });
 
@@ -130,3 +130,24 @@ export default useTasks;
 //         Reindirizzare l’utente alla lista dei task (/).
 //     Se la funzione lancia un errore:
 //         Mostrare un alert con il messaggio di errore ricevuto.
+
+
+// 📌 Milestone 10 - Modale e Funzione di Modifica Task (PUT)
+
+// Creare una modale per modificare i dettagli di un task e aggiornare i dati tramite API.
+
+//     Completare la funzione updateTask in useTasks():
+
+//         La funzione deve ricevere un oggetto updatedTask e effettuare una chiamata API PUT /tasks/:id.
+//         La chiamata API restituisce un oggetto con la seguente struttura:
+
+//             In caso di successo:
+//             { success: true, task: /* la task aggiornata */ }
+//             In caso di errore:
+//             { success: false, message: "Messaggio di errore" }
+
+//         La funzione updateTask deve controllare il valore di success nella risposta:
+//             Se success è true, aggiornare la task nello stato globale.
+//             Se success è false, lanciare un errore con message come testo.
+
+//     
