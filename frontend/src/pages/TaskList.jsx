@@ -34,10 +34,14 @@ function TaskList() {
 
   
 
-  // Milestone 11: useMemo ordina i task quando cambiano dati o criteri.
-  const sortedTask = useMemo(() => {
+  // Milestone 12: useMemo filtra e ordina i task quando cambiano dati o criteri.
+  const filteredAndSortedTasks = useMemo(() => {
 
-    return [...tasks].sort((a, b) => {
+    return [...tasks]
+      .filter((task) =>
+        task.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a, b) => {
         let comparison; // Variabile per memorizzare il risultato del confronto
 
         if (sortBy === "title") {
@@ -61,18 +65,7 @@ function TaskList() {
       });
 
       
-  }, [tasks, sortBy, sortOrder]);
-
-
-
-  // Milestone 12: useMemo filtra i task ordinati quando cambia la ricerca.
-  const filteredAndSortedTasks = useMemo(() => {
-
-    return sortedTask.filter((task) =>
-      task.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-  }, [sortedTask, searchQuery]);
+  }, [tasks, sortBy, sortOrder, searchQuery]);
 
 
   // Milestone 12: debounce ritarda l'aggiornamento della ricerca per migliorare le prestazioni.
@@ -100,7 +93,8 @@ function TaskList() {
       <h1 className="task-list-title">Task List</h1>
      
 
-      {/* Milestone 12: input non controllato permette di cercare una task per nome. */}
+      {/* Milestone 12: input non controllato permette di cercare una task per nome. 
+      Rimuovere value dall’input, rendendolo non controllato.*/}
       <input
         className="task-search-input"
         type="text"
